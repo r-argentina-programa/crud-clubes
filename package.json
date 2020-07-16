@@ -1,0 +1,39 @@
+{
+  "name": "crud-clubes",
+  "version": "1.0.0",
+  "description": "Un CRUD/ABM (Create, Retrieve, Update, Delete ó Alta, Baja, Modificación) de clubes de fútbol",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon -e 'js,njk' src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r-argentina-programa/crud-clubes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r-argentina-programa/crud-clubes/issues"
+  },
+  "homepage": "https://github.com/r-argentina-programa/crud-clubes#readme",
+  "devDependencies": {
+    "cypress": "^4.9.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.1",
+    "rsdi": "^1.0.5",
+    "sequelize": "^6.3.3",
+    "sqlite3": "^5.0.0"
+  }
+}

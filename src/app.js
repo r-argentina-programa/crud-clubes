@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const nunjucks = require('nunjucks');
 const configureDependencyInjection = require('./config/di');
@@ -6,6 +7,7 @@ const { init: initClubModule } = require('./module/club/module');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // https://mozilla.github.io/nunjucks/getting-started.html#when-using-node

@@ -1,0 +1,18 @@
+{% block body %}
+<form action="/club/save" method="POST">
+  <input type="hidden" name="id" />
+  <input type="text" name="name" placeholder="name" />
+  <input type="text" name="short-name" placeholder="short name" />
+  <input type="text" name="tla" placeholder="tla" />
+  <input type="text" name="crest-url" />
+  <input type="text" name="address" placeholder="address" />
+  <input type="text" name="phone" placeholder="phone" />
+  <input type="url" name="website" placeholder="website" />
+  <input type="email" name="email" placeholder="email" />
+  <input type="number" name="founded" placeholder="founded" />
+  <input type="text" name="club-colors" placeholder="club-colors" />
+  <input type="text" name="venue" placeholder="venue" />
+
+  <input type="submit" value="Guardar" />
+</form>
+{% endblock %}

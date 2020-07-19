@@ -1,0 +1,28 @@
+{% extends 'view/layout/base.njk' %}
+
+{% block body %}
+<h1>Índice de clubes</h1>
+{% for club in data.clubs %}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <a href="/club/view">Agregar</a>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr>
+      <td>{{club.id}}</td>
+      <td>{{club.name}}</td>
+    </tr>
+  </tbody>
+</table>
+{% endfor %}
+{% endblock %}

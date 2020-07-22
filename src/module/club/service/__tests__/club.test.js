@@ -1,4 +1,4 @@
-const ClubService = require('../club');
+const ClubService = require('../clubService');
 const ClubNotDefinedError = require('../exception/clubNotDefinedError');
 const IdNotDefinedError = require('../exception/idNotDefinedError');
 
@@ -16,8 +16,8 @@ test('Guardar un equipo llama al método save del repositorio 1 vez', () => {
   expect(repositoryMock.save).toHaveBeenCalledTimes(1);
 });
 
-test('Llamar a guardar un equipo sin pasar un equipo da un error específico', () => {
-  expect(service.save).toThrowError(ClubNotDefinedError);
+test('Llamar a guardar un equipo sin pasar un equipo da un error específico', async () => {
+  await expect(service.save).rejects.toThrowError(ClubNotDefinedError);
 });
 
 test('Eliminar un equipo llama al método delete del repositorio 1 vez', () => {
@@ -25,8 +25,8 @@ test('Eliminar un equipo llama al método delete del repositorio 1 vez', () => {
   expect(repositoryMock.delete).toHaveBeenCalledTimes(1);
 });
 
-test('Llamar a eliminar un equipo sin pasar un equipo da un error específico', () => {
-  expect(service.delete).toThrowError(ClubNotDefinedError);
+test('Llamar a eliminar un equipo sin pasar un equipo da un error específico', async () => {
+  await expect(service.delete).rejects.toThrowError(ClubNotDefinedError);
 });
 
 test('Consultar un equipo por id llama al método get del repositorio 1 vez', () => {
@@ -34,8 +34,8 @@ test('Consultar un equipo por id llama al método get del repositorio 1 vez', ()
   expect(repositoryMock.get).toHaveBeenCalledTimes(1);
 });
 
-test('Llamar a consultar un equipo sin pasar un equipo da un error específico', () => {
-  expect(service.getById).toThrowError(IdNotDefinedError);
+test('Llamar a consultar un equipo sin pasar un equipo da un error específico', async () => {
+  await expect(service.getById).rejects.toThrowError(IdNotDefinedError);
 });
 
 test('Consultar todos los equipos llama al método getAll del repositorio 1 vez', () => {

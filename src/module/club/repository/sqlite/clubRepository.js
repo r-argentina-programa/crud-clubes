@@ -12,7 +12,13 @@ module.exports = class ClubRepository {
    * @param {import('../../entity/club')} club
    */
   async save(club) {
-    return this.clubModel.create(club);
+    let clubModel;
+    if (!club.id) {
+      clubModel = await this.clubModel.create(club);
+    } else {
+      clubModel = await this.clubModel.build(club).update();
+    }
+    return fromModelToEntity(clubModel);
   }
 
   async delete() {}

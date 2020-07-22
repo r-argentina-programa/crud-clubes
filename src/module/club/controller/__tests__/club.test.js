@@ -1,16 +1,17 @@
-const ClubController = require('../club');
+const ClubController = require('../clubController');
 
 const serviceMock = {
   save: jest.fn(),
   delete: jest.fn(),
+  getAll: jest.fn(() => Promise.resolve([])),
 };
 const controller = new ClubController(serviceMock);
 
-test('Index renderea index.html', () => {
+test('Index renderea index.html', async () => {
   const renderMock = jest.fn();
-  controller.index({}, { render: renderMock });
+  await controller.index({}, { render: renderMock });
   expect(renderMock).toHaveBeenCalledTimes(1);
-  expect(renderMock).toHaveBeenCalledWith('club/view/index.html');
+  expect(renderMock).toHaveBeenCalledWith('club/view/index.html', { data: { clubs: [] } });
 });
 
 test('View renderea form.html', () => {
@@ -20,10 +21,10 @@ test('View renderea form.html', () => {
   expect(renderMock).toHaveBeenCalledWith('club/view/form.html');
 });
 
-test('Save llama al servicio con el body y redirecciona a /club', () => {
+test('Save llama al servicio con el body y redirecciona a /club', async () => {
   const redirectMock = jest.fn();
   const bodyMock = { id: 1 };
-  controller.save({ body: bodyMock }, { redirect: redirectMock });
+  await controller.save({ body: bodyMock }, { redirect: redirectMock });
   expect(serviceMock.save).toHaveBeenCalledTimes(1);
   expect(serviceMock.save).toHaveBeenCalledWith(bodyMock);
   expect(redirectMock).toHaveBeenCalledTimes(1);

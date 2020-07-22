@@ -8,7 +8,6 @@ function configureSequelize() {
     dialect: 'sqlite',
     storage: process.env.DB_PATH,
   });
-  sequelize.sync();
   return sequelize;
 }
 

@@ -1,4 +1,4 @@
-const { formDataToEntity } = require('../mapper/clubMapper');
+const { fromDataToEntity } = require('../mapper/clubMapper');
 
 module.exports = class ClubController {
   /**
@@ -31,7 +31,7 @@ module.exports = class ClubController {
    */
   async save(req, res) {
     try {
-      await this.clubService.save(formDataToEntity(req.body));
+      await this.clubService.save(fromDataToEntity(req.body));
       res.redirect('/club');
     } catch (e) {
       console.error(e);

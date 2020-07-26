@@ -6,9 +6,26 @@ module.exports = class ClubController extends AbstractController {
   /**
    * @param {import('../service/clubService')} clubService
    */
-  constructor(clubService) {
+  constructor(uploadMiddleware, clubService) {
     super();
+    this.uploadMiddleware = uploadMiddleware;
     this.clubService = clubService;
+  }
+
+  /**
+   * @param {import('express').Application} app
+   */
+  configureRoutes(app) {
+    const ROUTE = '/club';
+
+    // Nota: el `bind` es necesario porque estamos atando el callback a una función miembro de esta clase
+    // y no a la clase en si.
+    // Al hacer `bind` nos aseguramos que "this" dentro de `create` sea el controlador.
+    app.get(`${ROUTE}/create`, this.create.bind(this));
+    app.get(`${ROUTE}`, this.index.bind(this));
+    app.get(`${ROUTE}/view/:id`, this.view.bind(this));
+    app.post(`${ROUTE}/save`, this.uploadMiddleware.single('crest-url'), this.save.bind(this));
+    app.get(`${ROUTE}/delete/:id`, this.delete.bind(this));
   }
 
   /**
@@ -35,7 +52,7 @@ module.exports = class ClubController extends AbstractController {
    * @param {import('express').Request} req
    * @param {import('express').Response} res
    */
-  async edit(req, res) {
+  async view(req, res) {
     const { id } = req.params;
     if (!id) {
       throw new ClubIdNotDefinedError();
@@ -57,6 +74,8 @@ module.exports = class ClubController extends AbstractController {
   async save(req, res) {
     try {
       const club = fromDataToEntity(req.body);
+      const { path } = req.file;
+      club.crestUrl = path;
       const savedClub = await this.clubService.save(club);
       if (club.id) {
         req.session.messages = [`El club con id ${club.id} se actualizó exitosamente`];

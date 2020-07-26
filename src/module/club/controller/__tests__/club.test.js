@@ -7,7 +7,7 @@ const serviceMock = {
   getById: jest.fn(() => Promise.resolve({})),
   getAll: jest.fn(() => Promise.resolve([])),
 };
-const controller = new ClubController(serviceMock);
+const controller = new ClubController({}, serviceMock);
 
 test('Index renderea index.html', async () => {
   const renderMock = jest.fn();
@@ -33,9 +33,13 @@ test('Create renderea form.html', () => {
 
 test('Save llama al servicio con el body y redirecciona a /club', async () => {
   const redirectMock = jest.fn();
-  const bodyMock = { id: 1 };
+  const FAKE_CREST_URL = 'ejemplo/escudo.png';
+  const bodyMock = { id: 1, crestUrl: FAKE_CREST_URL };
 
-  await controller.save({ body: bodyMock, session: {} }, { redirect: redirectMock });
+  await controller.save(
+    { body: bodyMock, file: { path: FAKE_CREST_URL }, session: {} },
+    { redirect: redirectMock }
+  );
 
   expect(serviceMock.save).toHaveBeenCalledTimes(1);
   expect(serviceMock.save).toHaveBeenCalledWith(bodyMock);

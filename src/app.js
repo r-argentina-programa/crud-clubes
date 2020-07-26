@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 
 // https://mozilla.github.io/nunjucks/getting-started.html#when-using-node
 nunjucks.configure('src/module', {

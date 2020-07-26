@@ -74,8 +74,10 @@ module.exports = class ClubController extends AbstractController {
   async save(req, res) {
     try {
       const club = fromDataToEntity(req.body);
-      const { path } = req.file;
-      club.crestUrl = path;
+      if (req.file) {
+        const { path } = req.file;
+        club.crestUrl = path;
+      }
       const savedClub = await this.clubService.save(club);
       if (club.id) {
         req.session.messages = [`El club con id ${club.id} se actualizó exitosamente`];

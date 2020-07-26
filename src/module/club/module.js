@@ -11,7 +11,6 @@ function init(app, container) {
   /**
    * @type {ClubController} controller;
    */
-
   const controller = container.get('ClubController');
   controller.configureRoutes(app);
 }

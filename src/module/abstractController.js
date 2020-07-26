@@ -1,5 +1,9 @@
+const AbstractControllerError = require('./error/abstractControllerError');
+
 module.exports = class AbstractController {
-  getSessionErrors(session) {
-    return Array.isArray(session.errors) ? session.errors : [];
+  constructor() {
+    if (new.target === AbstractController) {
+      throw new AbstractControllerError();
+    }
   }
 };

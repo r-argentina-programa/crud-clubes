@@ -2,9 +2,20 @@
 
 {% block body %}
 {% set club = data.club %}
-<h1 class="title is-1">
-  {{"Editando club ID: " + club.id if club.id else "Nuevo club"}}
-</h1>
+
+<div class="level-left">
+  <div class="level-item">
+    <h1 class="title is-1">
+      {{"Editando club ID: " + club.id if club.id else "Nuevo club"}}
+    </h1>
+  </div>
+  <div class="level-item">
+    <span><a class="button is-link" href="/club">Cancelar</a></span>
+  </div>
+</div>
+
+<hr />
+
 <form action="/club/save" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="id" value="{{club.id}}" readonly />
 

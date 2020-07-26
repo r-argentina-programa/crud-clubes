@@ -1,11 +1,12 @@
 const ClubService = require('../clubService');
 const ClubNotDefinedError = require('../exception/clubNotDefinedError');
 const IdNotDefinedError = require('../exception/idNotDefinedError');
+const Club = require('../../entity/club');
 
 const repositoryMock = {
   save: jest.fn(),
   delete: jest.fn(),
-  get: jest.fn(),
+  getById: jest.fn(),
   getAll: jest.fn(),
 };
 
@@ -21,7 +22,7 @@ test('Llamar a guardar un equipo sin pasar un equipo da un error específico', a
 });
 
 test('Eliminar un equipo llama al método delete del repositorio 1 vez', () => {
-  service.delete({});
+  service.delete(new Club({ id: 1 }));
   expect(repositoryMock.delete).toHaveBeenCalledTimes(1);
 });
 
@@ -31,7 +32,7 @@ test('Llamar a eliminar un equipo sin pasar un equipo da un error específico', 
 
 test('Consultar un equipo por id llama al método get del repositorio 1 vez', () => {
   service.getById(1);
-  expect(repositoryMock.get).toHaveBeenCalledTimes(1);
+  expect(repositoryMock.getById).toHaveBeenCalledTimes(1);
 });
 
 test('Llamar a consultar un equipo sin pasar un equipo da un error específico', async () => {

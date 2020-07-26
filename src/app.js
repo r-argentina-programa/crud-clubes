@@ -22,4 +22,10 @@ app.use(container.get('Session'));
 
 initClubModule(app, container);
 
+/**
+ * @type {import('./module/club/controller/clubController')} controller;
+ */
+const clubController = container.get('ClubController');
+app.get('/', clubController.index.bind(clubController));
+
 app.listen(port, () => console.log(`Server listening at http://localhost:${port}`));

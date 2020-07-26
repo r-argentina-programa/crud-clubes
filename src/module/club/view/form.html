@@ -1,42 +1,130 @@
+{% extends 'view/layout/base.html' %}
+
 {% block body %}
 {% set club = data.club %}
+<h1 class="title is-1">
+  {{"Editando club ID: " + club.id if club.id else "Nuevo club"}}
+</h1>
 <form action="/club/save" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="id" value="{{club.id}}" readonly />
-  <label>Nombre
-    <input type=" text" name="name" placeholder="name" value="{{club.name}}" />
-  </label>
-  <label>Nombre (corto)
-    <input type="text" name="short-name" placeholder="short name" value="{{club.shortName}}" />
-  </label>
-  <label>TLA
-    <input type="text" name="tla" placeholder="tla" value="{{club.tla}}" />
-  </label>
-  <img src="/{{club.crestUrl}}" width="200" height="200" />
-  <label>Escudo
-    <input type="file" name="crest-url" />
-  </label>
-  <label>Dirección
-    <input type="text" name="address" placeholder="address" value="{{club.address}}" />
-  </label>
-  <label>Teléfono
-    <input type="text" name="phone" placeholder="phone" value="{{club.phone}}" />
-  </label>
-  <label>Sitio web
-    <input type="url" name="website" placeholder="website" value="{{club.website}}" />
-  </label>
-  <label>E-mail
-    <input type="email" name="email" placeholder="email" value="{{club.email}}" />
-  </label>
-  <label>Año de fundación
-    <input type="number" name="founded" placeholder="founded" value="{{club.founded}}" />
-  </label>
-  <label>Colores del club
-    <input type="text" name="club-colors" placeholder="club-colors" value="{{club.clubColors}}" />
-  </label>
-  <label>Estadio
-    <input type="text" name="venue" placeholder="venue" value="{{club.venue}}" />
-  </label>
 
-  <input type="submit" value="Guardar" />
+  <div class="field">
+    <label class="label">Nombre</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="name" placeholder="Independiente" value="{{club.name}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-signature"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Nombre corto</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="short-name" placeholder="Indep'te" value="{{club.shortName}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-compress"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Nombre corto</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="tla" placeholder="IND" value="{{club.tla}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-compress"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    {% if not club.crestUrl %}
+    <img src="/{{club.crestUrl}}" width="256" height="256" />
+    {% endif %}
+    <label class="label">Escudo</label>
+    <div class="control has-icons-left">
+      <input class="input" type="file" name="crest-url" />
+      <span class=" icon is-small is-left">
+        <i class="fas fa-shield-alt"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Dirección</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="address" placeholder="Avenida Mitre 470, Avellaneda"
+        value="{{club.address}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-map-marked"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Teléfono</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="phone" placeholder="4229-7600" value="{{club.address}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-phone"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Sitio web</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="website" placeholder="http://clubaindependiente.com/"
+        value="{{club.website}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-globe"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">E-mail</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="email" placeholder="socios
+  @clubaindependiente.com.ar" value="{{club.email}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-globe"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Año de Fundación</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="founded" placeholder="1905" value="{{club.founded}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-file-signature"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Colores del club</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="club-colors" placeholder="rojo" value="{{club.clubColors}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-palette"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Estadio</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="venue" placeholder="Libertadores de América" value="{{club.venue}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-place-of-worship"></i>
+      </span>
+    </div>
+  </div>
+
+  <input type="submit" class="button is-primary is-large" value="Guardar" />
+  <hr />
 </form>
 {% endblock %}

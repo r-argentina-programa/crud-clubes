@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const nunjucks = require('nunjucks');
+
 const configureDependencyInjection = require('./config/di');
 const { init: initClubModule } = require('./module/club/module');
 
@@ -16,7 +17,8 @@ nunjucks.configure('src/module', {
   express: app,
 });
 
-const container = configureDependencyInjection();
+const container = configureDependencyInjection(app);
+app.use(container.get('Session'));
 
 initClubModule(app, container);
 

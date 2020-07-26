@@ -2,27 +2,63 @@
 
 {% block body %}
 <h1>Índice de clubes</h1>
-{% for club in data.clubs %}
+
+{% for error in errors %}
+{{error}}
+{% endfor %}
+
+{% for message in messages %}
+{{message}}
+{% endfor %}
+
 <table>
   <thead>
     <tr>
       <th>ID</th>
       <th>Nombre</th>
+      <th>Nombre (Corto)</th>
+      <th>TLA</th>
+      <th>Escudo</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Sitio web</th>
+      <th>Email</th>
+      <th>Año de fundación</th>
+      <th>Colores</th>
+      <th>Estadio</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
     </tr>
   </thead>
   <tfoot>
     <tr>
       <td colspan="2">
-        <a href="/club/view">Agregar</a>
+        <a href="/club/create">Agregar</a>
       </td>
     </tr>
   </tfoot>
   <tbody>
+    {% for club in data.clubs %}
+
     <tr>
       <td>{{club.id}}</td>
       <td>{{club.name}}</td>
+      <td>{{club.shortName}}</td>
+      <td>{{club.tla}}</td>
+      <td>{{club.crestUrl}}</td>
+      <td>{{club.address}}</td>
+      <td>{{club.phone}}</td>
+      <td>
+        <a href="{{club.website}}" title="Sitio web oficial del club {{club.name}}" target="_blank">{{club.website}}</a>
+      </td>
+      <td><a href="mailto:{{club.email}}" title="e-mail del club {{club.name}}">{{club.email}}</a></td>
+      <td>{{club.founded}}</td>
+      <td>{{club.clubColors}}</td>
+      <td>{{club.venue}}</td>
+      <td><a href="/club/view/{{club.id}}">editar</a></td>
+      <td><a href="/club/delete/{{club.id}}">eliminar</a></td>
     </tr>
+    {% endfor %}
   </tbody>
 </table>
-{% endfor %}
 {% endblock %}

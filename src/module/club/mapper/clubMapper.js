@@ -25,7 +25,7 @@ function fromDataToEntity({
   venue,
 }) {
   return new Club({
-    id,
+    id: Number(id),
     name,
     shortName,
     tla,

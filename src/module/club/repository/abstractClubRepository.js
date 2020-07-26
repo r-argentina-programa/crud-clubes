@@ -4,7 +4,11 @@ const AbstractRepositoryError = require('./error/abstractRepositoryError');
 
 module.exports = class AbstractClubRepository {
   constructor() {
-    throw new AbstractRepositoryError('No se puede instanciar el repositorio de clubes abstracto.');
+    if (new.target === AbstractClubRepository) {
+      throw new AbstractRepositoryError(
+        'No se puede instanciar el repositorio de clubes abstracto.'
+      );
+    }
   }
 
   /**
@@ -22,7 +26,7 @@ module.exports = class AbstractClubRepository {
    * @param {Number} id
    * @returns {import('../entity/club')}
    */
-  async get(id) {}
+  async getById(id) {}
 
   /**
    * @returns {Array<import('../entity/club')>}

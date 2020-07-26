@@ -4,6 +4,7 @@
 
 const ClubNotDefinedError = require('./exception/clubNotDefinedError');
 const IdNotDefinedError = require('./exception/idNotDefinedError');
+const Club = require('../entity/club');
 
 module.exports = class Service {
   /**
@@ -14,20 +15,26 @@ module.exports = class Service {
     this.clubRepository = clubRepository;
   }
 
-  async save(team) {
-    if (team === undefined) {
+  /**
+   * @param {Club} club
+   */
+  async save(club) {
+    if (club === undefined) {
       throw new ClubNotDefinedError();
     }
 
-    return this.clubRepository.save(team);
+    return this.clubRepository.save(club);
   }
 
-  async delete(team) {
-    if (team === undefined) {
+  /**
+   * @param {Club} club
+   */
+  async delete(club) {
+    if (!(club instanceof Club)) {
       throw new ClubNotDefinedError();
     }
 
-    return this.clubRepository.delete(team);
+    return this.clubRepository.delete(club);
   }
 
   async getById(id) {
@@ -35,7 +42,7 @@ module.exports = class Service {
       throw new IdNotDefinedError();
     }
 
-    return this.clubRepository.get(id);
+    return this.clubRepository.getById(id);
   }
 
   async getAll() {

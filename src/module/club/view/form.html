@@ -1,17 +1,40 @@
 {% block body %}
+{% set club = data.club %}
 <form action="/club/save" method="POST">
-  <input type="hidden" name="id" />
-  <input type="text" name="name" placeholder="name" />
-  <input type="text" name="short-name" placeholder="short name" />
-  <input type="text" name="tla" placeholder="tla" />
-  <input type="text" name="crest-url" />
-  <input type="text" name="address" placeholder="address" />
-  <input type="text" name="phone" placeholder="phone" />
-  <input type="url" name="website" placeholder="website" />
-  <input type="email" name="email" placeholder="email" />
-  <input type="number" name="founded" placeholder="founded" />
-  <input type="text" name="club-colors" placeholder="club-colors" />
-  <input type="text" name="venue" placeholder="venue" />
+  <input type="hidden" name="id" value="{{club.id}}" readonly />
+  <label>Nombre
+    <input type=" text" name="name" placeholder="name" value="{{club.name}}" />
+  </label>
+  <label>Nombre (corto)
+    <input type="text" name="short-name" placeholder="short name" value="{{club.shortName}}" />
+  </label>
+  <label>TLA
+    <input type="text" name="tla" placeholder="tla" value="{{club.tla}}" />
+  </label>
+  <label>Escudo
+    <input type="text" name="crest-url" value="{{club.crestUrl}}" />
+  </label>
+  <label>Dirección
+    <input type="text" name="address" placeholder="address" value="{{club.address}}" />
+  </label>
+  <label>Teléfono
+    <input type="text" name="phone" placeholder="phone" value="{{club.phone}}" />
+  </label>
+  <label>Sitio web
+    <input type="url" name="website" placeholder="website" value="{{club.website}}" />
+  </label>
+  <label>E-mail
+    <input type="email" name="email" placeholder="email" value="{{club.email}}" />
+  </label>
+  <label>Año de fundación
+    <input type="number" name="founded" placeholder="founded" value="{{club.founded}}" />
+  </label>
+  <label>Colores del club
+    <input type="text" name="club-colors" placeholder="club-colors" value="{{club.clubColors}}" />
+  </label>
+  <label>Estadio
+    <input type="text" name="venue" placeholder="venue" value="{{club.venue}}" />
+  </label>
 
   <input type="submit" value="Guardar" />
 </form>

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon -e 'js,njk,html' src/app.js",
+    "schema:sync": "node src/cli/init.db.js",
+    "dev": "npm run schema:sync && nodemon -e 'js,njk,html' src/app.js",
     "test": "jest --coverage",
     "test:dev": "jest --watch"
   },

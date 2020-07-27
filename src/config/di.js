@@ -7,13 +7,13 @@ const multer = require('multer');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { ClubController, ClubService, ClubRepository, ClubModel } = require('../module/club/module');
+const { AreaController, AreaService, AreaRepository, AreaModel } = require('../module/area/module');
 
 function configureMainSequelizeDatabase() {
   const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: process.env.DB_PATH,
   });
-  sequelize.sync();
   return sequelize;
 }
 
@@ -28,8 +28,15 @@ function configureSessionSequelizeDatabase() {
 /**
  * @param {DIContainer} container
  */
-function configureClubModule(container) {
+function configureClubModel(container) {
   return ClubModel.setup(container.get('Sequelize'));
+}
+
+/**
+ * @param {DIContainer} container
+ */
+function configureAreaModel(container) {
+  return AreaModel.setup(container.get('Sequelize'));
 }
 
 /**
@@ -66,17 +73,46 @@ function configureMulter() {
   return multer({ storage });
 }
 
-module.exports = function configureDI() {
-  const container = new DIContainer();
+/**
+ * @param {DIContainer} container
+ */
+function addCommonDefinitions(container) {
   container.addDefinitions({
-    ClubController: object(ClubController).construct(get('Multer'), get('ClubService')),
-    ClubService: object(ClubService).construct(get('ClubRepository')),
-    ClubRepository: object(ClubRepository).construct(get('ClubModel')),
-    ClubModel: factory(configureClubModule),
     Sequelize: factory(configureMainSequelizeDatabase),
     SessionSequelize: factory(configureSessionSequelizeDatabase),
     Session: factory(configureSession),
     Multer: factory(configureMulter),
   });
+}
+
+/**
+ * @param {DIContainer} container
+ */
+function addClubModuleDefinitions(container) {
+  container.addDefinitions({
+    ClubController: object(ClubController).construct(get('Multer'), get('ClubService')),
+    ClubService: object(ClubService).construct(get('ClubRepository')),
+    ClubRepository: object(ClubRepository).construct(get('ClubModel')),
+    ClubModel: factory(configureClubModel),
+  });
+}
+
+/**
+ * @param {DIContainer} container
+ */
+function addAreaModuleDefinitions(container) {
+  container.addDefinitions({
+    AreaController: object(AreaController).construct(get('AreaService')),
+    AreaService: object(AreaService).construct(get('AreaRepository')),
+    AreaRepository: object(AreaRepository).construct(get('AreaModel')),
+    AreaModel: factory(configureAreaModel),
+  });
+}
+
+module.exports = function configureDI() {
+  const container = new DIContainer();
+  addCommonDefinitions(container);
+  addClubModuleDefinitions(container);
+  addAreaModuleDefinitions(container);
   return container;
 };

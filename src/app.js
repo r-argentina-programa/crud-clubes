@@ -4,6 +4,7 @@ const nunjucks = require('nunjucks');
 
 const configureDependencyInjection = require('./config/di');
 const { init: initClubModule } = require('./module/club/module');
+const { init: initAreaModule } = require('./module/area/module');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ const container = configureDependencyInjection(app);
 app.use(container.get('Session'));
 
 initClubModule(app, container);
+initAreaModule(app, container);
 
 /**
  * @type {import('./module/club/controller/clubController')} controller;

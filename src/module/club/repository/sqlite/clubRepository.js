@@ -6,10 +6,12 @@ const ClubIdNotDefinedError = require('../error/clubIdNotDefinedError');
 module.exports = class ClubRepository extends AbstractClubRepository {
   /**
    * @param {typeof import('./clubModel')} clubModel
+   * * @param {typeof import('../../../area/repository/sqlite/areaModel')} areaModel
    */
-  constructor(clubModel) {
+  constructor(clubModel, areaModel) {
     super();
     this.clubModel = clubModel;
+    this.areaModel = areaModel;
   }
 
   /**
@@ -18,11 +20,12 @@ module.exports = class ClubRepository extends AbstractClubRepository {
    */
   async save(club) {
     let clubModel;
-    if (!club.id) {
-      clubModel = await this.clubModel.create(club);
-    } else {
-      clubModel = await this.clubModel.build(club, { isNewRecord: false }).save();
-    }
+
+    const buildOptions = { isNewRecord: !club.id, include: this.areaModel };
+    clubModel = this.clubModel.build(club, buildOptions);
+    clubModel.setDataValue('area_id', club.Area.id);
+    clubModel = await clubModel.save();
+
     return fromModelToEntity(clubModel);
   }
 
@@ -43,7 +46,10 @@ module.exports = class ClubRepository extends AbstractClubRepository {
    * @returns {Promise<import('../../entity/club')>}
    */
   async getById(id) {
-    const clubModel = await this.clubModel.findOne({ where: { id } });
+    const clubModel = await this.clubModel.findOne({
+      where: { id },
+      include: this.areaModel,
+    });
 
     if (!clubModel) {
       throw new ClubNotFoundError(`No se encontró club con id ${id}`);

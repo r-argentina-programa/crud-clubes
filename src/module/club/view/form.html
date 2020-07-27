@@ -2,6 +2,7 @@
 
 {% block body %}
 {% set club = data.club %}
+{% set areas = data.areas %}
 
 <div class="level-left">
   <div class="level-item">
@@ -58,6 +59,23 @@
       <input class="input" type="file" name="crest-url" />
       <span class=" icon is-small is-left">
         <i class="fas fa-shield-alt"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Área</label>
+    <div class="control has-icons-left">
+      <div class="select">
+        <select name="area_id">
+          <option {{"selected" if club.id}}>Seleccione</option>
+          {% for area in areas %}
+          <option value="{{area.id}}" {{"selected" if area.id == club.Area.id}}>{{area.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <span class="icon is-small is-left">
+        <i class="fas fa-location-arrow"></i>
       </span>
     </div>
   </div>

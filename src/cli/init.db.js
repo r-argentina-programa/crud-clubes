@@ -9,6 +9,7 @@ const container = configureDependencyInjection(app);
  * @type {import('sequelize').Sequelize} mainDb
  */
 const mainDb = container.get('Sequelize');
+
 container.get('AreaModel');
 container.get('ClubModel');
 

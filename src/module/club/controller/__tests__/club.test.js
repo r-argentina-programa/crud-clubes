@@ -1,5 +1,6 @@
 const ClubController = require('../clubController');
 const Club = require('../../entity/club');
+const Area = require('../../../area/entity/area');
 
 const serviceMock = {
   save: jest.fn(),
@@ -7,7 +8,7 @@ const serviceMock = {
   getById: jest.fn(() => Promise.resolve({})),
   getAll: jest.fn(() => Promise.resolve([])),
 };
-const controller = new ClubController({}, serviceMock);
+const controller = new ClubController({}, serviceMock, serviceMock);
 
 test('Index renderea index.html', async () => {
   const renderMock = jest.fn();
@@ -22,19 +23,47 @@ test('Index renderea index.html', async () => {
   });
 });
 
-test('Create renderea form.html', () => {
-  const renderMock = jest.fn();
+test('Create muestra un error si no hay áreas en el sistema', async () => {
+  const mockRes = { redirect: jest.fn() };
+  const mockReq = { session: {} };
+  await controller.create(mockReq, mockRes);
+  expect(mockRes.redirect).toHaveBeenCalledTimes(1);
+  expect(mockReq.session.errors).toEqual(['Para crear un club, primero debe crear un área']);
+});
 
-  controller.create({}, { render: renderMock });
+test('Create renderea form.html', async () => {
+  const renderMock = jest.fn();
+  const mockAreasData = [new Area({ id: 1, name: 'Argentina' })];
+  serviceMock.getAll.mockImplementationOnce(() => mockAreasData);
+  await controller.create({}, { render: renderMock });
 
   expect(renderMock).toHaveBeenCalledTimes(1);
-  expect(renderMock).toHaveBeenCalledWith('club/view/form.html');
+  expect(renderMock).toHaveBeenCalledWith('club/view/form.html', {
+    data: { areas: mockAreasData },
+  });
 });
 
 test('Save llama al servicio con el body y redirecciona a /club', async () => {
   const redirectMock = jest.fn();
   const FAKE_CREST_URL = 'ejemplo/escudo.png';
-  const bodyMock = { id: 1, crestUrl: FAKE_CREST_URL };
+  const bodyMock = new Club({
+    Area: {
+      id: NaN,
+      name: undefined,
+    },
+    address: undefined,
+    clubColors: undefined,
+    crestUrl: 'ejemplo/escudo.png',
+    email: undefined,
+    founded: undefined,
+    id: 1,
+    name: undefined,
+    phone: undefined,
+    shortName: undefined,
+    tla: undefined,
+    venue: undefined,
+    website: undefined,
+  });
 
   await controller.save(
     { body: bodyMock, file: { path: FAKE_CREST_URL }, session: {} },

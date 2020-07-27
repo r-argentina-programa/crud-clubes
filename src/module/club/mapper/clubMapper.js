@@ -4,6 +4,7 @@
 // map from Model to Entity
 
 const Club = require('../entity/club');
+const Area = require('../../area/entity/area');
 
 /**
  *
@@ -23,6 +24,8 @@ function fromDataToEntity({
   founded,
   'club-colors': clubColors,
   venue,
+  // eslint-disable-next-line camelcase
+  area_id,
 }) {
   return new Club({
     id: Number(id),
@@ -37,6 +40,7 @@ function fromDataToEntity({
     founded,
     clubColors,
     venue,
+    Area: new Area({ id: Number(area_id) }),
   });
 }
 

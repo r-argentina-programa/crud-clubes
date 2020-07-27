@@ -5,18 +5,21 @@ const AbstractController = require('../../abstractController');
 module.exports = class ClubController extends AbstractController {
   /**
    * @param {import('../service/clubService')} clubService
+   * @param {import('../../area/service/areaService')} areaService
    */
-  constructor(uploadMiddleware, clubService) {
+  constructor(uploadMiddleware, clubService, areaService) {
     super();
+    this.ROUTE_BASE = '/club';
     this.uploadMiddleware = uploadMiddleware;
     this.clubService = clubService;
+    this.areaService = areaService;
   }
 
   /**
    * @param {import('express').Application} app
    */
   configureRoutes(app) {
-    const ROUTE = '/club';
+    const ROUTE = this.ROUTE_BASE;
 
     // Nota: el `bind` es necesario porque estamos atando el callback a una función miembro de esta clase
     // y no a la clase en si.
@@ -45,7 +48,14 @@ module.exports = class ClubController extends AbstractController {
    * @param {import('express').Response} res
    */
   async create(req, res) {
-    res.render('club/view/form.html');
+    const areas = await this.areaService.getAll();
+
+    if (areas.length > 0) {
+      res.render('club/view/form.html', { data: { areas } });
+    } else {
+      req.session.errors = ['Para crear un club, primero debe crear un área'];
+      res.redirect(this.ROUTE_BASE);
+    }
   }
 
   /**
@@ -60,7 +70,8 @@ module.exports = class ClubController extends AbstractController {
 
     try {
       const club = await this.clubService.getById(id);
-      res.render('club/view/form.html', { data: { club } });
+      const areas = await this.areaService.getAll();
+      res.render('club/view/form.html', { data: { club, areas } });
     } catch (e) {
       req.session.errors = [e.message];
       res.redirect('/club');

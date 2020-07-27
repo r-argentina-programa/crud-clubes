@@ -9,6 +9,8 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { ClubController, ClubService, ClubRepository, ClubModel } = require('../module/club/module');
 const { AreaController, AreaService, AreaRepository, AreaModel } = require('../module/area/module');
 
+const setupSequelizeModelAssociations = require('./associations');
+
 function configureMainSequelizeDatabase() {
   const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -53,8 +55,6 @@ function configureSession(container) {
     saveUninitialized: false,
     cookie: { maxAge: ONE_WEEK_IN_SECONDS },
   };
-
-  sequelize.sync();
   return session(sessionOptions);
 }
 
@@ -90,9 +90,13 @@ function addCommonDefinitions(container) {
  */
 function addClubModuleDefinitions(container) {
   container.addDefinitions({
-    ClubController: object(ClubController).construct(get('Multer'), get('ClubService')),
+    ClubController: object(ClubController).construct(
+      get('Multer'),
+      get('ClubService'),
+      get('AreaService')
+    ),
     ClubService: object(ClubService).construct(get('ClubRepository')),
-    ClubRepository: object(ClubRepository).construct(get('ClubModel')),
+    ClubRepository: object(ClubRepository).construct(get('ClubModel'), get('AreaModel')),
     ClubModel: factory(configureClubModel),
   });
 }
@@ -112,7 +116,8 @@ function addAreaModuleDefinitions(container) {
 module.exports = function configureDI() {
   const container = new DIContainer();
   addCommonDefinitions(container);
-  addClubModuleDefinitions(container);
   addAreaModuleDefinitions(container);
+  addClubModuleDefinitions(container);
+  setupSequelizeModelAssociations(container.get('ClubModel'), container.get('AreaModel'));
   return container;
 };

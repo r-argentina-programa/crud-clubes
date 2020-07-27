@@ -1,12 +1,14 @@
 const { fromModelToEntity } = require('./clubMapper');
+const AbstractClubRepository = require('../abstractClubRepository');
 const ClubNotFoundError = require('../error/clubNotFoundError');
 const ClubIdNotDefinedError = require('../error/clubIdNotDefinedError');
 
-module.exports = class ClubRepository {
+module.exports = class ClubRepository extends AbstractClubRepository {
   /**
    * @param {typeof import('./clubModel')} clubModel
    */
   constructor(clubModel) {
+    super();
     this.clubModel = clubModel;
   }
 

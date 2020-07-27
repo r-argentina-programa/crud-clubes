@@ -1,19 +1,19 @@
 /* eslint-disable no-empty-function */
 /* eslint-disable no-unused-vars */
-const AbstractClubRepositoryError = require('./error/abstractClubRepositoryError');
+const AbstractAreaRepositoryError = require('./error/abstractAreaRepositoryError');
 
 module.exports = class AbstractClubRepository {
   constructor() {
     if (new.target === AbstractClubRepository) {
-      throw new AbstractClubRepositoryError(
-        'No se puede instanciar el repositorio de clubes abstracto.'
+      throw new AbstractAreaRepositoryError(
+        'No se puede instanciar el repositorio de áreas abstracto.'
       );
     }
   }
 
   /**
-   * @param {import('../entity/club')} club
-   * @returns {import('../entity/club')}
+   * @param {import('../entity/area')} area
+   * @returns {Promise<import('../entity/area')>}
    */
   async save(club) {}
 
@@ -24,12 +24,12 @@ module.exports = class AbstractClubRepository {
 
   /**
    * @param {Number} id
-   * @returns {import('../entity/club')}
+   * @returns {Promise<import('../entity/area')>}
    */
   async getById(id) {}
 
   /**
-   * @returns {Array<import('../entity/club')>}
+   * @returns {Promise<Array<import('../entity/area')>>}
    */
   async getAll() {}
 };

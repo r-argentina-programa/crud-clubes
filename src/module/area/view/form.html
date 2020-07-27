@@ -1,0 +1,34 @@
+{% extends 'view/layout/base.html' %}
+
+{% block body %}
+{% set area = data.area %}
+
+<div class="level-left">
+  <div class="level-item">
+    <h1 class="title is-1">
+      {{"Editando area ID: " + area.id if area.id else "Nuevo area"}}
+    </h1>
+  </div>
+  <div class="level-item">
+    <span><a class="button is-link" href="/area">Cancelar</a></span>
+  </div>
+</div>
+
+<hr />
+
+<form action="/area/save" method="POST">
+  <input type="hidden" name="id" value="{{area.id}}" readonly />
+
+  <div class="field">
+    <label class="label">Nombre</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="name" placeholder="Argentina" value="{{area.name}}" />
+      <span class="icon is-small is-left">
+        <i class="fas fa-signature"></i>
+      </span>
+    </div>
+  </div>
+  <input type="submit" class="button is-primary is-large" value="Guardar" />
+  <hr />
+</form>
+{% endblock %}

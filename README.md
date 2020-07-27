@@ -15,6 +15,7 @@ El proyecto se corre con:
 ```
 npm run start # corre el proyecto en modo producción
 npm run dev # corre el proyecto en modo desarrollo
+npm run schema:sync # sincroniza la base de datos de sesión y la base de datos principal con los modelos definidos
 npm run test # corre tests de jest y recolecta el code coverage
 npm run test:dev # corre tests de jest de manera continua (watch)
 npm run test:ui # corre pruebas de interfaz en modo "headless"
@@ -50,6 +51,10 @@ Adaptado de https://softwareontheroad.com/ideal-nodejs-project-structure/
 | src/module/club/service          | lógica de negocio de nuestra aplicación                                                                                       |
 | src/module/club/view             | archivos de presentación (interfaz) que se procesarán del lado del servidor (SSR, server side rendering)                      |
 | src/module/club/module.js        | archivo de entrada a este módulo que lo inicializa                                                                            |
+
+## Creando modelos nuevos
+
+Si se crea un modelo de Sequelize nuevo, recordar cargarlo en el archivo `src/cli/init.db.js` para que la sincronización de la base de datos incluya el nuevo modelo.
 
 ## Configuración del IDE
 

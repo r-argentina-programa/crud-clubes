@@ -2,8 +2,8 @@
  * @typedef {import('../repository/abstractClubRepository')} AbstractClubRepository
  */
 
-const ClubNotDefinedError = require('./exception/clubNotDefinedError');
-const IdNotDefinedError = require('./exception/idNotDefinedError');
+const ClubNotDefinedError = require('./error/clubNotDefinedError');
+const ClubIdNotDefinedError = require('./error/clubIdNotDefinedError');
 const Club = require('../entity/club');
 
 module.exports = class Service {
@@ -39,7 +39,7 @@ module.exports = class Service {
 
   async getById(id) {
     if (id === undefined) {
-      throw new IdNotDefinedError();
+      throw new ClubIdNotDefinedError();
     }
 
     return this.clubRepository.getById(id);

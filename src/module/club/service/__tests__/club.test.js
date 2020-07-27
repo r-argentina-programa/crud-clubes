@@ -1,6 +1,6 @@
 const ClubService = require('../clubService');
-const ClubNotDefinedError = require('../exception/clubNotDefinedError');
-const IdNotDefinedError = require('../exception/idNotDefinedError');
+const ClubNotDefinedError = require('../error/clubNotDefinedError');
+const ClubIdNotDefinedError = require('../error/clubIdNotDefinedError');
 const Club = require('../../entity/club');
 
 const repositoryMock = {
@@ -36,7 +36,7 @@ test('Consultar un equipo por id llama al método get del repositorio 1 vez', ()
 });
 
 test('Llamar a consultar un equipo sin pasar un equipo da un error específico', async () => {
-  await expect(service.getById).rejects.toThrowError(IdNotDefinedError);
+  await expect(service.getById).rejects.toThrowError(ClubIdNotDefinedError);
 });
 
 test('Consultar todos los equipos llama al método getAll del repositorio 1 vez', () => {

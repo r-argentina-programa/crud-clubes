@@ -4,6 +4,8 @@ Un CRUD/ABM (Create, Retrieve, Update, Delete ó Alta, Baja, Modificación) de c
 
 ## Diagrama
 
+![Diagramas de C4 nivel 1, 2 y 3 para CRUD clubes](./clubes_crud.jpg)
+
 ## Cómo instalar y correr este proyecto
 
 El proyecto se instala con `npm install`

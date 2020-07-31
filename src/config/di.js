@@ -1,15 +1,20 @@
 // configure DI container
 const path = require('path');
+const uuid = require('uuid');
+const fs = require('fs');
 const { default: DIContainer, object, get, factory } = require('rsdi');
 const { Sequelize } = require('sequelize');
 const multer = require('multer');
 
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const { ClubController, ClubService, ClubRepository, ClubModel } = require('../module/club/module');
+const { default: FactoryDefinition } = require('rsdi/definitions/FactoryDefinition');
+const { ClubController, ClubService, ClubRepository } = require('../module/club/module');
 const { AreaController, AreaService, AreaRepository, AreaModel } = require('../module/area/module');
 
-const setupSequelizeModelAssociations = require('./associations');
+function configureMainJSONDatabase() {
+  return process.env.JSON_DB_PATH;
+}
 
 function configureMainSequelizeDatabase() {
   const sequelize = new Sequelize({
@@ -25,13 +30,6 @@ function configureSessionSequelizeDatabase() {
     storage: process.env.SESSION_DB_PATH,
   });
   return sequelize;
-}
-
-/**
- * @param {DIContainer} container
- */
-function configureClubModel(container) {
-  return ClubModel.setup(container.get('Sequelize'));
 }
 
 /**
@@ -73,11 +71,18 @@ function configureMulter() {
   return multer({ storage });
 }
 
+function configureUuid() {
+  return uuid.v4;
+}
+
 /**
  * @param {DIContainer} container
  */
 function addCommonDefinitions(container) {
   container.addDefinitions({
+    fs,
+    uuid: factory(configureUuid),
+    JSONDatabase: factory(configureMainJSONDatabase),
     Sequelize: factory(configureMainSequelizeDatabase),
     SessionSequelize: factory(configureSessionSequelizeDatabase),
     Session: factory(configureSession),
@@ -96,8 +101,7 @@ function addClubModuleDefinitions(container) {
       get('AreaService')
     ),
     ClubService: object(ClubService).construct(get('ClubRepository')),
-    ClubRepository: object(ClubRepository).construct(get('ClubModel'), get('AreaModel')),
-    ClubModel: factory(configureClubModel),
+    ClubRepository: object(ClubRepository).construct(get('uuid'), get('fs'), get('JSONDatabase')),
   });
 }
 
@@ -118,6 +122,5 @@ module.exports = function configureDI() {
   addCommonDefinitions(container);
   addAreaModuleDefinitions(container);
   addClubModuleDefinitions(container);
-  setupSequelizeModelAssociations(container.get('ClubModel'), container.get('AreaModel'));
   return container;
 };

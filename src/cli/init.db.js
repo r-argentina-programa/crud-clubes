@@ -11,7 +11,6 @@ const container = configureDependencyInjection(app);
 const mainDb = container.get('Sequelize');
 
 container.get('AreaModel');
-container.get('ClubModel');
 
 mainDb.sync();
 

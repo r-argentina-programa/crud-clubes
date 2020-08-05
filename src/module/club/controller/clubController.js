@@ -97,7 +97,7 @@ module.exports = class ClubController extends AbstractController {
       }
       res.redirect('/club');
     } catch (e) {
-      req.session.errors = [e.message];
+      req.session.errors = [e.message, e.stack];
       res.redirect('/club');
     }
   }

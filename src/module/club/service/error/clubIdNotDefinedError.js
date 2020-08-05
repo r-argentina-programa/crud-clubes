@@ -1,1 +1,1 @@
-module.exports = class AreaIdNotDefinedError extends Error {};
+module.exports = class ClubIdNotDefinedError extends Error {};

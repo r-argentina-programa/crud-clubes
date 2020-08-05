@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "schema:sync": "node src/cli/init.db.js",
-    "dev": "npm run schema:sync && nodemon -e 'js,njk,html' src/app.js",
+    "dev": "nodemon -e 'js,njk,html' src/app.js",
     "test": "jest --coverage",
     "test:dev": "jest --watch"
   },
@@ -35,7 +34,6 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "connect-session-sequelize": "^7.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
@@ -43,7 +41,6 @@
     "nunjucks": "^3.2.1",
     "rsdi": "^1.0.5",
     "sequelize": "^6.3.3",
-    "sqlite3": "^5.0.0",
     "uuid": "^8.3.0"
   }
 }

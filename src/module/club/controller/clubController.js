@@ -5,14 +5,12 @@ const AbstractController = require('../../abstractController');
 module.exports = class ClubController extends AbstractController {
   /**
    * @param {import('../service/clubService')} clubService
-   * @param {import('../../area/service/areaService')} areaService
    */
-  constructor(uploadMiddleware, clubService, areaService) {
+  constructor(uploadMiddleware, clubService) {
     super();
     this.ROUTE_BASE = '/club';
     this.uploadMiddleware = uploadMiddleware;
     this.clubService = clubService;
-    this.areaService = areaService;
   }
 
   /**
@@ -48,14 +46,7 @@ module.exports = class ClubController extends AbstractController {
    * @param {import('express').Response} res
    */
   async create(req, res) {
-    const areas = await this.areaService.getAll();
-
-    if (areas.length > 0) {
-      res.render('club/view/form.html', { data: { areas } });
-    } else {
-      req.session.errors = ['Para crear un club, primero debe crear un área'];
-      res.redirect(this.ROUTE_BASE);
-    }
+    res.render('club/view/form.html');
   }
 
   /**
@@ -70,8 +61,7 @@ module.exports = class ClubController extends AbstractController {
 
     try {
       const club = await this.clubService.getById(id);
-      const areas = await this.areaService.getAll();
-      res.render('club/view/form.html', { data: { club, areas } });
+      res.render('club/view/form.html', { data: { club } });
     } catch (e) {
       req.session.errors = [e.message];
       res.redirect('/club');

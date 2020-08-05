@@ -31,8 +31,14 @@ module.exports = class ClubRepository extends AbstractClubRepository {
           `No se pudo actualizar el club club con id ${club.id} porque no se encontró`
         );
       }
+
+      const oldClub = clubs[clubIndex];
       clubs[clubIndex] = club;
       clubToSave = club;
+
+      if (!club.crestUrl) {
+        clubs[clubIndex].crestUrl = oldClub.crestUrl;
+      }
     } else {
       clubToSave = { ...club, ...{ id: this.uuid() } };
       clubs.push(clubToSave);

@@ -50,10 +50,6 @@ Adaptado de https://softwareontheroad.com/ideal-nodejs-project-structure/
 | src/module/club/view             | archivos de presentación (interfaz) que se procesarán del lado del servidor (SSR, server side rendering)                      |
 | src/module/club/module.js        | archivo de entrada a este módulo que lo inicializa                                                                            |
 
-## Creando modelos nuevos
-
-Si se crea un modelo de Sequelize nuevo, recordar cargarlo en el archivo `src/cli/init.db.js` para que la sincronización de la base de datos incluya el nuevo modelo.
-
 ## Configuración del IDE
 
 El IDE debe soportar Prettier + ESLint, como por ejemplo (vscode)[https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a]

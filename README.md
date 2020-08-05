@@ -29,7 +29,6 @@ Adaptado de https://softwareontheroad.com/ideal-nodejs-project-structure/
 
 | Ruta                             | explicación                                                                                                                   |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| proyecto                         |
 | public                           | contiene los archivos estáticos que va a servir el navegador, acá se guardan las imágenes subidas                             |
 | src                              | contiene toda nuestra aplicación                                                                                              |
 | src/app.js                       | punto de entrada de nuestra aplicación                                                                                        |

@@ -63,7 +63,7 @@ module.exports = class ClubController extends AbstractController {
       const club = await this.clubService.getById(id);
       res.render('club/view/form.html', { data: { club } });
     } catch (e) {
-      req.session.errors = [e.message];
+      req.session.errors = [e.message, e.stack];
       res.redirect('/club');
     }
   }
@@ -87,7 +87,7 @@ module.exports = class ClubController extends AbstractController {
       }
       res.redirect('/club');
     } catch (e) {
-      req.session.errors = [e.message, e.name, e.stack];
+      req.session.errors = [e.message, e.stack];
       res.redirect('/club');
     }
   }
@@ -103,7 +103,7 @@ module.exports = class ClubController extends AbstractController {
       await this.clubService.delete(club);
       req.session.messages = [`Se eliminó el club ID: ${id} (${club.name})`];
     } catch (e) {
-      req.session.errors = [e.message, e.type, e.stack];
+      req.session.errors = [e.message, e.stack];
     }
     res.redirect('/club');
   }

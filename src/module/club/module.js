@@ -1,5 +1,5 @@
 const ClubController = require('./controller/clubController');
-const ClubRepository = require('./repository/json/clubRepository');
+const ClubRepository = require('./repository/sqlite/clubRepository');
 const ClubService = require('./service/clubService');
 
 /**

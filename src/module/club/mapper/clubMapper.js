@@ -35,6 +35,42 @@ function fromDataToEntity({
   });
 }
 
+/**
+ *
+ * @param {Object} formData
+ * @returns Club
+ */
+function fromDbToEntity({
+  id,
+  name,
+  short_name: shortName,
+  tla,
+  crest_url: crestUrl,
+  address,
+  phone,
+  website,
+  email,
+  founded,
+  club_colors: clubColors,
+  venue,
+}) {
+  return new Club({
+    id,
+    name,
+    shortName,
+    tla,
+    crestUrl,
+    address,
+    phone,
+    website,
+    email,
+    founded,
+    clubColors,
+    venue,
+  });
+}
+
 module.exports = {
   fromDataToEntity,
+  fromDbToEntity,
 };

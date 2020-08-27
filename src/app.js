@@ -17,7 +17,7 @@ nunjucks.configure('src/module', {
   express: app,
 });
 
-const container = configureDependencyInjection(app);
+const container = configureDependencyInjection();
 app.use(container.get('Session'));
 
 initClubModule(app, container);

@@ -1,6 +1,7 @@
 /* eslint-disable no-empty-function */
 /* eslint-disable no-unused-vars */
 const AbstractClubRepositoryError = require('./error/abstractClubRepositoryError');
+const MethodNotImplementedError = require('./error/methodNotImplementedError');
 
 module.exports = class AbstractClubRepository {
   constructor() {
@@ -15,21 +16,29 @@ module.exports = class AbstractClubRepository {
    * @param {import('../entity/club')} club
    * @returns {import('../entity/club')}
    */
-  async save(club) {}
+  async save(club) {
+    throw new MethodNotImplementedError();
+  }
 
   /**
    * @param {Number} id
    */
-  async delete(id) {}
+  async delete(id) {
+    throw new MethodNotImplementedError();
+  }
 
   /**
    * @param {Number} id
    * @returns {import('../entity/club')}
    */
-  async getById(id) {}
+  async getById(id) {
+    throw new MethodNotImplementedError();
+  }
 
   /**
    * @returns {Array<import('../entity/club')>}
    */
-  async getAll() {}
+  async getAll() {
+    throw new MethodNotImplementedError();
+  }
 };

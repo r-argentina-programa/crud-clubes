@@ -18,7 +18,8 @@ module.exports = class ClubRepository extends AbstractClubRepository {
    */
   save(club) {
     let id;
-    if (club.id) {
+    const isUpdate = club.id;
+    if (isUpdate) {
       id = club.id;
       const statement = this.databaseAdapter.prepare(`
         UPDATE clubes SET

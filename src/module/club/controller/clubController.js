@@ -48,6 +48,7 @@ module.exports = class ClubController extends AbstractController {
    * @param {import('express').Response} res
    */
   async create(req, res) {
+    // Esto puede debatirse, pero yo veo la falta de áreas como una validación de presentación y no de lógica de negocio
     const areas = await this.areaService.getAll();
 
     if (areas.length > 0) {

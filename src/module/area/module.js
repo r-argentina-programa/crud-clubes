@@ -1,7 +1,7 @@
 const AreaController = require('./controller/areaController');
 const AreaRepository = require('./repository/sqlite/areaRepository');
 const AreaService = require('./service/areaService');
-const AreaModel = require('./repository/sqlite/areaModel');
+const AreaModel = require('./model/areaModel');
 
 /**
  * @param {import('express').Application} app

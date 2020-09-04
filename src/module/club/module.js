@@ -1,7 +1,7 @@
 const ClubController = require('./controller/clubController');
 const ClubRepository = require('./repository/sqlite/clubRepository');
 const ClubService = require('./service/clubService');
-const ClubModel = require('./repository/sqlite/clubModel');
+const ClubModel = require('./model/clubModel');
 
 /**
  * @param {import('express').Application} app

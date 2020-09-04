@@ -63,6 +63,15 @@ module.exports = class ClubModel extends Model {
         timestamps: false,
       }
     );
+
     return ClubModel;
+  }
+
+  /**
+   *
+   * @param {import('../../area/model/areaModel')} AreaModel
+   */
+  static setupAssociations(AreaModel) {
+    ClubModel.belongsTo(AreaModel, { foreignKey: 'area_id' });
   }
 };

@@ -1,4 +1,4 @@
-const fromDataToEntity = require('../mapper/areaMapper');
+const { fromDataToEntity } = require('../mapper/areaMapper');
 const AreaIdNotDefinedError = require('./error/areaIdNotDefinedError');
 const AbstractController = require('../../abstractController');
 

@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 const ClubRepository = require('../clubRepository');
-const ClubModel = require('../clubModel');
-const AreaModel = require('../../../../area/repository/sqlite/areaModel');
+const ClubModel = require('../../../model/clubModel');
+const AreaModel = require('../../../../area/model/areaModel');
 const ClubEntity = require('../../../entity/club');
 const ClubNotFoundError = require('../../error/clubNotFoundError');
 const ClubIdNotDefinedError = require('../../error/clubIdNotDefinedError');

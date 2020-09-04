@@ -1,12 +1,12 @@
-const { fromModelToEntity } = require('./clubMapper');
+const { fromModelToEntity } = require('../../mapper/clubMapper');
 const AbstractClubRepository = require('../abstractClubRepository');
 const ClubNotFoundError = require('../error/clubNotFoundError');
 const ClubIdNotDefinedError = require('../error/clubIdNotDefinedError');
 
 module.exports = class ClubRepository extends AbstractClubRepository {
   /**
-   * @param {typeof import('./clubModel')} clubModel
-   * * @param {typeof import('../../../area/repository/sqlite/areaModel')} areaModel
+   * @param {typeof import('../../model/clubModel')} clubModel
+   * * @param {typeof import('../../../area/model/areaModel')} areaModel
    */
   constructor(clubModel, areaModel) {
     super();

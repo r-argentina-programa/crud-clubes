@@ -1,4 +1,4 @@
-const { fromModelToEntity } = require('./areaMapper');
+const { fromModelToEntity } = require('../../mapper/areaMapper');
 const AbstractAreaRepository = require('../abstractAreaRepository');
 const AreaNotFoundError = require('../error/areaNotFoundError');
 const AreaIdNotDefinedError = require('../error/areaIdNotDefinedError');

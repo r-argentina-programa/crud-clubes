@@ -9,8 +9,6 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { ClubController, ClubService, ClubRepository, ClubModel } = require('../module/club/module');
 const { AreaController, AreaService, AreaRepository, AreaModel } = require('../module/area/module');
 
-const setupSequelizeModelAssociations = require('./associations');
-
 function configureMainSequelizeDatabase() {
   const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -118,6 +116,5 @@ module.exports = function configureDI() {
   addCommonDefinitions(container);
   addAreaModuleDefinitions(container);
   addClubModuleDefinitions(container);
-  setupSequelizeModelAssociations(container.get('ClubModel'), container.get('AreaModel'));
   return container;
 };

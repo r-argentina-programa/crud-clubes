@@ -44,6 +44,15 @@ function fromDataToEntity({
   });
 }
 
+/**
+ * @param {import('./clubModel')} model
+ * @returns {import('../../entity/club')}
+ */
+function fromModelToEntity(model) {
+  return new Club(model.toJSON());
+}
+
 module.exports = {
   fromDataToEntity,
+  fromModelToEntity,
 };

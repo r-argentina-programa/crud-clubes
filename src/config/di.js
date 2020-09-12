@@ -29,7 +29,9 @@ function configureSessionSequelizeDatabase() {
  * @param {DIContainer} container
  */
 function configureClubModel(container) {
-  return ClubModel.setup(container.get('Sequelize'));
+  ClubModel.setup(container.get('Sequelize'));
+  ClubModel.setupAssociations(container.get('AreaModel'));
+  return ClubModel;
 }
 
 /**

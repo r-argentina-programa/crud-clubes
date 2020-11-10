@@ -19,4 +19,5 @@ mainDb.sync();
  * @type {import('sequelize').Sequelize} sessionDb
  */
 const sessionDb = container.get('SessionSequelize');
+container.get('Session');
 sessionDb.sync();
